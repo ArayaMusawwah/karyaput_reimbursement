@@ -13,7 +13,7 @@ $categories_stmt = $conn->query($categories_sql);
 $categories = $categories_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Pagination setup
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $page = max(1, $page); // Ensure page is at least 1
 $itemsPerPage = 10; // Number of items per page
 $offset = ($page - 1) * $itemsPerPage;
@@ -114,7 +114,7 @@ if (!empty($month_filter)) {
 }
 
 // Add the LIMIT and OFFSET directly to the SQL string
-$sql .= " ORDER BY r.submitted_at DESC LIMIT " . (int)$itemsPerPage . " OFFSET " . (int)$offset;
+$sql .= " ORDER BY r.submitted_at DESC LIMIT " . (int) $itemsPerPage . " OFFSET " . (int) $offset;
 
 $user_requests_stmt = $conn->prepare($sql);
 $user_requests_stmt->execute($params);
@@ -128,7 +128,7 @@ if (!empty($user_requests)) {
     $items_stmt = $conn->prepare($items_sql);
     $items_stmt->execute($requestIds);
     $all_items = $items_stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     // Group items by request_id
     $items_by_request = [];
     foreach ($all_items as $item) {
@@ -138,7 +138,7 @@ if (!empty($user_requests)) {
         }
         $items_by_request[$request_id][] = $item;
     }
-    
+
     // Attach items to each request
     foreach ($user_requests as $key => $request) {
         $request_id = $request['id'];
@@ -164,10 +164,11 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Reimbursement System</title>
+    <title>Dasbor - Sistem Reimbursement</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -177,9 +178,11 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
             right: 20px;
             z-index: 9999;
         }
+
         .toast-custom {
             min-width: 300px;
         }
+
         /* Stats card tweaks for better mobile spacing and sizing */
         .stats-card .card-body {
             display: flex;
@@ -189,23 +192,31 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
+
         .stats-card .card-title {
             font-size: 1.5rem;
             margin-bottom: 0;
             line-height: 1;
         }
+
         @media (max-width: 576px) {
             .stats-card .card-title {
                 font-size: 1.25rem;
             }
-            .stats-card { margin-bottom: 0.6rem; }
+
+            .stats-card {
+                margin-bottom: 0.6rem;
+            }
         }
+
         /* Search/filter spacing tweaks */
         .filters-row .form-control,
         .filters-row .btn {
             margin-bottom: 0.5rem;
         }
+
         @media (min-width: 768px) {
+
             /* Remove extra bottom margin on md+ where grid provides spacing */
             .filters-row .form-control,
             .filters-row .btn {
@@ -214,21 +225,22 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
         }
     </style>
 </head>
+
 <body>
     <?php include 'includes/header.php'; ?>
-    
+
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
-                <h2><?php echo Language::t('Welcome'); ?>, <?php echo htmlspecialchars($_SESSION['full_name']); ?></h2>
-                <p><?php echo Language::t('Your reimbursement summary'); ?></p>
-                
+                <h2>Selamat Datang, <?php echo htmlspecialchars($_SESSION['full_name']); ?></h2>
+                <p>Ringkasan reimbursement Anda</p>
+
                 <div class="row mb-4">
                     <div class="col-6 col-md-3 mb-2">
                         <div class="card text-center bg-primary text-white stats-card">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $stats['pending_count']; ?></h5>
-                                <p class="card-text"><?php echo Language::t('Pending'); ?></p>
+                                <p class="card-text">Menunggu</p>
                             </div>
                         </div>
                     </div>
@@ -236,7 +248,7 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="card text-center bg-success text-white stats-card">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $stats['approved_count']; ?></h5>
-                                <p class="card-text"><?php echo Language::t('Approved'); ?></p>
+                                <p class="card-text">Disetujui</p>
                             </div>
                         </div>
                     </div>
@@ -244,7 +256,7 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="card text-center bg-danger text-white stats-card">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $stats['denied_count']; ?></h5>
-                                <p class="card-text"><?php echo Language::t('Denied'); ?></p>
+                                <p class="card-text">Ditolak</p>
                             </div>
                         </div>
                     </div>
@@ -252,62 +264,66 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="card text-center bg-info text-white stats-card">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $stats['paid_count']; ?></h5>
-                                <p class="card-text"><?php echo Language::t('Paid'); ?></p>
+                                <p class="card-text">Dibayar</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3><?php echo Language::t('Your Requests'); ?></h3>
-                    <a href="request.php" class="btn btn-success"><?php echo Language::t('New Request'); ?></a>
+                    <h3>Permintaan Anda</h3>
+                    <a href="request.php" class="btn btn-success">Permintaan Baru</a>
                 </div>
-                
+
                 <!-- Search and Filter Section -->
                 <div class="card mb-4">
                     <div class="card-body">
                         <form method="GET">
                             <div class="row g-2 filters-row">
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="search" placeholder="<?php echo Language::t('Search'); ?>" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                                    <input type="text" class="form-control" name="search" placeholder="Cari"
+                                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                                 </div>
                                 <div class="col-md-2">
                                     <select class="form-control" name="status">
-                                        <option value=""><?php echo Language::t('All Status'); ?></option>
-                                        <option value="pending" <?php echo (isset($_GET['status']) && $_GET['status'] == 'pending') ? 'selected' : ''; ?>><?php echo Language::t('Pending'); ?></option>
-                                        <option value="approved" <?php echo (isset($_GET['status']) && $_GET['status'] == 'approved') ? 'selected' : ''; ?>><?php echo Language::t('Approved'); ?></option>
-                                        <option value="denied" <?php echo (isset($_GET['status']) && $_GET['status'] == 'denied') ? 'selected' : ''; ?>><?php echo Language::t('Denied'); ?></option>
-                                        <option value="paid" <?php echo (isset($_GET['status']) && $_GET['status'] == 'paid') ? 'selected' : ''; ?>><?php echo Language::t('Paid'); ?></option>
+                                        <option value="">Semua Status</option>
+                                        <option value="pending" <?php echo (isset($_GET['status']) && $_GET['status'] == 'pending') ? 'selected' : ''; ?>>Menunggu</option>
+                                        <option value="approved" <?php echo (isset($_GET['status']) && $_GET['status'] == 'approved') ? 'selected' : ''; ?>>Disetujui</option>
+                                        <option value="denied" <?php echo (isset($_GET['status']) && $_GET['status'] == 'denied') ? 'selected' : ''; ?>>Ditolak</option>
+                                        <option value="paid" <?php echo (isset($_GET['status']) && $_GET['status'] == 'paid') ? 'selected' : ''; ?>>Dibayar</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
                                     <select class="form-control" name="category">
-                                        <option value=""><?php echo Language::t('All Categories'); ?></option>
-                                        <?php foreach($categories as $category): ?>
-                                        <option value="<?php echo $category['id']; ?>" <?php echo (isset($_GET['category']) && $_GET['category'] == $category['id']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($category['name']); ?></option>
+                                        <option value="">Semua Kategori</option>
+                                        <?php foreach ($categories as $category): ?>
+                                            <option value="<?php echo $category['id']; ?>" <?php echo (isset($_GET['category']) && $_GET['category'] == $category['id']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($category['name']); ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="month" class="form-control" name="month" value="<?php echo htmlspecialchars($month_filter); ?>">
+                                    <input type="month" class="form-control" name="month"
+                                        value="<?php echo htmlspecialchars($month_filter); ?>">
                                 </div>
                                 <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary"><?php echo Language::t('Apply Filter'); ?></button>
+                                    <button type="submit" class="btn btn-primary">Terapkan Filter</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <a href="dashboard.php" class="btn btn-secondary"><?php echo Language::t('Clear Filter'); ?></a>
+                                    <a href="dashboard.php" class="btn btn-secondary">Hapus Filter</a>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
-                                    <div class="form-text"><?php echo Language::t('Use either date range or month filter (date range takes precedence)'); ?></div>
+                                    <div class="form-text">Gunakan rentang tanggal atau filter bulan (rentang tanggal
+                                        diprioritaskan)</div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                
-                <?php 
+
+                <?php
                 // Get user's requests with search and filter
                 $search = isset($_GET['search']) ? $_GET['search'] : '';
                 $status_filter = isset($_GET['status']) ? $_GET['status'] : '';
@@ -321,177 +337,204 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                         WHERE r.user_id = ?";
 
                 $params = [$_SESSION['user_id']];
-                
+
                 if (!empty($search)) {
                     $sql .= " AND (r.description LIKE ?)";
                     $params[] = "%$search%";
                 }
-                
+
                 if (!empty($status_filter)) {
                     $sql .= " AND r.status = ?";
                     $params[] = $status_filter;
                 }
-                
+
                 if (!empty($category_filter)) {
                     $sql .= " AND r.category_id = ?";
                     $params[] = $category_filter;
                 }
-                
+
                 if (!empty($date_from)) {
                     $sql .= " AND r.requested_date >= ?";
                     $params[] = $date_from;
                 }
-                
+
                 if (!empty($date_to)) {
                     $sql .= " AND r.requested_date <= ?";
                     $params[] = $date_to;
                 }
-                
+
                 $sql .= " ORDER BY r.submitted_at DESC";
-                
+
                 $stmt = $conn->prepare($sql);
                 $stmt->execute($params);
                 $user_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
-                
+
                 <?php if (count($user_requests) > 0): ?>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th><?php echo Language::t('Category'); ?></th>
-                                <th><?php echo Language::t('Total Amount (Rp)'); ?></th>
-                                <th><?php echo Language::t('Date'); ?></th>
-                                <th><?php echo Language::t('Status'); ?></th>
-                                <th><?php echo Language::t('Submitted At'); ?></th>
-                                <th><?php echo Language::t('Actions'); ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($user_requests as $request): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($request['category_name']); ?></td>
-                                <td>Rp<?php echo number_format($request['total_amount'], 2, ',', '.'); ?></td>
-                                <td><?php echo date('d M Y', strtotime($request['requested_date'])); ?></td>
-                                <td>
-                                    <?php 
-                                        $status_class = '';
-                                        switch($request['status']) {
-                                            case 'pending': $status_class = 'warning'; break;
-                                            case 'approved': $status_class = 'success'; break;
-                                            case 'denied': $status_class = 'danger'; break;
-                                            case 'paid': $status_class = 'info'; break;
-                                        }
-                                    ?>
-                                    <span class="badge bg-<?php echo $status_class; ?>"><?php echo ucfirst($request['status']); ?></span>
-                                    <?php if ($request['status'] === 'approved'): ?>
-                                        <br><small class="text-muted"><?php echo Language::t('Approved by'); ?>: <?php echo htmlspecialchars($request['approved_by_name']); ?></small>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?php echo date('d M Y g:i A', strtotime($request['submitted_at'])); ?></td>
-                                <td>
-                                    <!-- Detail button -->
-                                    <a href="request_detail.php?id=<?php echo $request['id']; ?>" class="btn btn-sm btn-info">
-                                        <?php echo Language::t('Detail'); ?>
-                                    </a>
-                                    
-                                    <?php if ($request['receipt_path']): ?>
-                                        <?php 
-                                        $fileExtension = pathinfo($request['receipt_path'], PATHINFO_EXTENSION);
-                                        $isImage = in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif']);
-                                        ?>
-                                        <?php if ($isImage): ?>
-                                            <a href="<?php echo htmlspecialchars($request['receipt_path']); ?>" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#receiptModal<?php echo $request['id']; ?>">
-                                                <?php echo Language::t('View Receipt'); ?>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Kategori</th>
+                                    <th>Total Jumlah (Rp)</th>
+                                    <th>Tanggal</th>
+                                    <th>Status</th>
+                                    <th>Diajukan Pada</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($user_requests as $request): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($request['category_name']); ?></td>
+                                        <td>Rp<?php echo number_format($request['total_amount'], 2, ',', '.'); ?></td>
+                                        <td><?php echo date('d M Y', strtotime($request['requested_date'])); ?></td>
+                                        <td>
+                                            <?php
+                                            $status_class = '';
+                                            switch ($request['status']) {
+                                                case 'pending':
+                                                    $status_class = 'warning';
+                                                    break;
+                                                case 'approved':
+                                                    $status_class = 'success';
+                                                    break;
+                                                case 'denied':
+                                                    $status_class = 'danger';
+                                                    break;
+                                                case 'paid':
+                                                    $status_class = 'info';
+                                                    break;
+                                            }
+                                            ?>
+                                            <span
+                                                class="badge bg-<?php echo $status_class; ?>"><?php echo ucfirst($request['status']); ?></span>
+                                            <?php if ($request['status'] === 'approved'): ?>
+                                                <br><small class="text-muted">Disetujui oleh:
+                                                    <?php echo htmlspecialchars($request['approved_by_name']); ?></small>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo date('d M Y g:i A', strtotime($request['submitted_at'])); ?></td>
+                                        <td>
+                                            <!-- Detail button -->
+                                            <a href="request_detail.php?id=<?php echo $request['id']; ?>"
+                                                class="btn btn-sm btn-info">
+                                                Detail
                                             </a>
-                                            <!-- Receipt Lightbox Modal -->
-                                            <div class="modal fade" id="receiptModal<?php echo $request['id']; ?>" tabindex="-1" aria-labelledby="receiptModalLabel<?php echo $request['id']; ?>" aria-hidden="true">
-                                                <div class="modal-dialog modal-xl modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="receiptModalLabel<?php echo $request['id']; ?>"><?php echo Language::t('Receipt Preview'); ?></h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo Language::t('Close'); ?>"></button>
-                                                        </div>
-                                                        <div class="modal-body text-center">
-                                                            <img src="<?php echo htmlspecialchars($request['receipt_path']); ?>" class="img-fluid" alt="<?php echo Language::t('Receipt'); ?>">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo Language::t('Close'); ?></button>
-                                                            <a href="<?php echo htmlspecialchars($request['receipt_path']); ?>" target="_blank" class="btn btn-primary"><?php echo Language::t('Open in New Tab'); ?></a>
+
+                                            <?php if ($request['receipt_path']): ?>
+                                                <?php
+                                                $fileExtension = pathinfo($request['receipt_path'], PATHINFO_EXTENSION);
+                                                $isImage = in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif']);
+                                                ?>
+                                                <?php if ($isImage): ?>
+                                                    <a href="<?php echo htmlspecialchars($request['receipt_path']); ?>"
+                                                        class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#receiptModal<?php echo $request['id']; ?>">
+                                                        Lihat Bukti
+                                                    </a>
+                                                    <!-- Receipt Lightbox Modal -->
+                                                    <div class="modal fade" id="receiptModal<?php echo $request['id']; ?>" tabindex="-1"
+                                                        aria-labelledby="receiptModalLabel<?php echo $request['id']; ?>"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="receiptModalLabel<?php echo $request['id']; ?>">Pratinjau
+                                                                        Bukti</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                        aria-label="Tutup"></button>
+                                                                </div>
+                                                                <div class="modal-body text-center">
+                                                                    <img src="<?php echo htmlspecialchars($request['receipt_path']); ?>"
+                                                                        class="img-fluid" alt="Bukti">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Tutup</button>
+                                                                    <a href="<?php echo htmlspecialchars($request['receipt_path']); ?>"
+                                                                        target="_blank" class="btn btn-primary">Buka di Tab Baru</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        <?php else: ?>
-                                            <a href="<?php echo htmlspecialchars($request['receipt_path']); ?>" target="_blank" class="btn btn-sm btn-outline-primary">
-                                                <?php echo Language::t('View Receipt'); ?>
-                                            </a>
-                                        <?php endif; ?>
-                                    <?php else: ?>
-                                        <span class="text-muted"><?php echo Language::t('No receipt'); ?></span>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                                                <?php else: ?>
+                                                    <a href="<?php echo htmlspecialchars($request['receipt_path']); ?>" target="_blank"
+                                                        class="btn btn-sm btn-outline-primary">
+                                                        Lihat Bukti
+                                                    </a>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <span class="text-muted">Tidak ada bukti</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php else: ?>
-                <p><?php echo Language::t('You haven\'t submitted any reimbursement requests yet.'); ?></p>
-                <a href="request.php" class="btn btn-success"><?php echo Language::t('Submit Your First Request'); ?></a>
+                    <p>Anda belum mengajukan permintaan reimbursement apapun.</p>
+                    <a href="request.php" class="btn btn-success">Ajukan Permintaan Pertama Anda</a>
                 <?php endif; ?>
-                
+
                 <!-- Pagination -->
                 <?php if ($totalPages > 1): ?>
-                <nav aria-label="Reimbursement requests pagination">
-                    <ul class="pagination justify-content-center mt-4">
-                        <?php if ($page > 1): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>"><?php echo Language::t('Previous'); ?></a>
-                            </li>
-                        <?php endif; ?>
-                        
-                        <?php
-                        // Show first page, current page, and last page with ellipsis if needed
-                        $startPage = max(1, $page - 2);
-                        $endPage = min($totalPages, $page + 2);
-                        
-                        if ($startPage > 1): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => 1])); ?>">1</a>
-                            </li>
-                            <?php if ($startPage > 2): ?>
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                    <nav aria-label="Reimbursement requests pagination">
+                        <ul class="pagination justify-content-center mt-4">
+                            <?php if ($page > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>">Sebelumnya</a>
+                                </li>
                             <?php endif; ?>
-                        <?php endif; ?>
-                        
-                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                            <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
-                                <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>"><?php echo $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-                        
-                        <?php if ($endPage < $totalPages): ?>
-                            <?php if ($endPage < $totalPages - 1): ?>
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
+
+                            <?php
+                            // Show first page, current page, and last page with ellipsis if needed
+                            $startPage = max(1, $page - 2);
+                            $endPage = min($totalPages, $page + 2);
+
+                            if ($startPage > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?<?php echo http_build_query(array_merge($_GET, ['page' => 1])); ?>">1</a>
+                                </li>
+                                <?php if ($startPage > 2): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
                             <?php endif; ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $totalPages])); ?>"><?php echo $totalPages; ?></a>
-                            </li>
-                        <?php endif; ?>
-                        
-                        <?php if ($page < $totalPages): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 1])); ?>"><?php echo Language::t('Next'); ?></a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
+
+                            <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                                    <a class="page-link"
+                                        href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+
+                            <?php if ($endPage < $totalPages): ?>
+                                <?php if ($endPage < $totalPages - 1): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?<?php echo http_build_query(array_merge($_GET, ['page' => $totalPages])); ?>"><?php echo $totalPages; ?></a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if ($page < $totalPages): ?>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 1])); ?>">Selanjutnya</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-    
+
     <div id="toast-container" class="toast-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -512,9 +555,9 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             `;
-            
+
             document.getElementById('toast-container').innerHTML += toastHTML;
-            
+
             const toastEl = document.getElementById(toastId);
             const toast = new bootstrap.Toast(toastEl, {
                 delay: 5000,
@@ -524,4 +567,5 @@ $stats = $stats_stmt->fetch(PDO::FETCH_ASSOC);
         }
     </script>
 </body>
+
 </html>

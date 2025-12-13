@@ -16,18 +16,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST['confirm_password'];
     $full_name = trim($_POST['full_name']);
     $department = trim($_POST['department']);
-    
+
     // Validation
     if (empty($username) || empty($email) || empty($password) || empty($full_name) || empty($department)) {
-        $error = "Please fill in all fields";
+        $error = "Mohon isi semua kolom";
     } elseif ($password !== $confirm_password) {
-        $error = "Passwords do not match";
+        $error = "Kata sandi tidak cocok";
     } elseif (strlen($password) < 6) {
-        $error = "Password must be at least 6 characters long";
+        $error = "Kata sandi minimal 6 karakter";
     } else {
         $result = registerUser($username, $email, $password, $full_name, $department);
         if ($result === true) {
-            $success = "Registration successful! You can now login.";
+            $success = "Registrasi berhasil! Anda sekarang bisa masuk.";
         } else {
             $error = $result;
         }
@@ -37,67 +37,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Reimbursement System</title>
+    <title>Daftar - Sistem Reimbursement</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card mt-5">
                     <div class="card-header">
-                        <h3 class="text-center">Register - Reimbursement System</h3>
+                        <h3 class="text-center">Daftar - Sistem Reimbursement</h3>
                     </div>
                     <div class="card-body">
-                        <?php if($error): ?>
+                        <?php if ($error): ?>
                             <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
                         <?php endif; ?>
-                        
-                        <?php if($success): ?>
+
+                        <?php if ($success): ?>
                             <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
                         <?php endif; ?>
-                        
+
                         <form method="POST">
                             <div class="mb-3">
-                                <label for="full_name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="full_name" name="full_name" value="<?php echo isset($_POST['full_name']) ? htmlspecialchars($_POST['full_name']) : ''; ?>" required>
+                                <label for="full_name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="full_name" name="full_name"
+                                    value="<?php echo isset($_POST['full_name']) ? htmlspecialchars($_POST['full_name']) : ''; ?>"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"
+                                    required>
                             </div>
                             <div class="mb-3">
-                                <label for="department" class="form-label">Department</label>
-                                <input type="text" class="form-control" id="department" name="department" value="<?php echo isset($_POST['department']) ? htmlspecialchars($_POST['department']) : ''; ?>" required>
+                                <label for="department" class="form-label">Departemen</label>
+                                <input type="text" class="form-control" id="department" name="department"
+                                    value="<?php echo isset($_POST['department']) ? htmlspecialchars($_POST['department']) : ''; ?>"
+                                    required>
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label">Kata Sandi</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="mb-3">
-                                <label for="confirm_password" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                <label for="confirm_password" class="form-label">Konfirmasi Kata Sandi</label>
+                                <input type="password" class="form-control" id="confirm_password"
+                                    name="confirm_password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Register</button>
+                            <button type="submit" class="btn btn-primary w-100">Daftar</button>
                         </form>
-                        
+
                         <div class="text-center mt-3">
-                            <p><a href="login.php">Already have an account? Login here</a></p>
+                            <p><a href="login.php">Sudah punya akun? Masuk di sini</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

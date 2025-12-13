@@ -13,55 +13,60 @@ if (isset($_SESSION['user_id'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reimbursement System</title>
+    <title>Sistem Reimbursement</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card mt-5">
                     <div class="card-header">
-                        <h3 class="text-center">Welcome to Reimbursement System</h3>
+                        <h3 class="text-center">Selamat Datang di Sistem Reimbursement</h3>
                     </div>
                     <div class="card-body text-center">
-                        <p>Please login to access your reimbursement requests or register if you don't have an account.</p>
-                        
+                        <p>Silakan masuk untuk mengakses permintaan reimbursement Anda atau daftar jika Anda belum
+                            memiliki akun.</p>
+
                         <div class="mt-4">
-                            <a href="login.php" class="btn btn-primary">Login</a>
-                            <a href="register.php" class="btn btn-success">Register</a>
+                            <a href="login.php" class="btn btn-primary">Masuk</a>
+                            <a href="register.php" class="btn btn-success">Daftar</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="row mt-4">
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">About the Reimbursement System</h5>
+                        <h5 class="card-title">Tentang Sistem Reimbursement</h5>
                         <p class="card-text">
-                            Our reimbursement system allows employees to easily submit requests for business-related expenses and track their status.
-                            Managers and administrators can review and approve requests efficiently.
+                            Sistem reimbursement kami memungkinkan karyawan untuk dengan mudah mengajukan permintaan
+                            pengeluaran terkait bisnis dan melacak statusnya.
+                            Manajer dan administrator dapat meninjau dan menyetujui permintaan dengan efisien.
                         </p>
                         <ul>
-                            <li>Submit expense requests with receipts</li>
-                            <li>Track request status in real-time</li>
-                            <li>Review and approve requests (for managers/admins)</li>
-                            <li>Secure user authentication</li>
+                            <li>Ajukan permintaan pengeluaran dengan bukti</li>
+                            <li>Lacak status permintaan secara real-time</li>
+                            <li>Tinjau dan setujui permintaan (untuk manajer/admin)</li>
+                            <li>Otentikasi pengguna yang aman</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

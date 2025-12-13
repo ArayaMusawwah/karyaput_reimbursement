@@ -91,24 +91,24 @@ CREATE TABLE reimbursement_items (
 -- ====================================
 -- Create default admin account
 -- Username: admin
--- Password: admin123
+-- Password: Setup1PW!
 INSERT INTO users (username, email, password, full_name, department, role) VALUES
-('admin', 'admin@karyaputrabersama.com', '$2y$12$B79r8rHKCAPfpjcxFcJ5c.YeUhPU/RbnFAyvI65.yRYXTi0U3bx8S', 'System Administrator', 'IT', 'admin');
+('admin', 'admin@karyaputrabersama.com', '$2y$12$ZhXBblGDbZXlYpncojogTOl/w9ey40ewIky6vdC71rzsNph6qf3Za', 'System Administrator', 'IT', 'admin');
 
 -- ====================================
 -- Initial Data: Default Categories
 -- ====================================
 -- Create common reimbursement categories
 INSERT INTO categories (name, description) VALUES
-('Travel', 'Transportation expenses including flights, trains, buses, and taxis'),
-('Meals', 'Food and beverage expenses during business trips or meetings'),
-('Accommodation', 'Hotel and lodging expenses'),
-('Medical', 'Health and medical expenses'),
-('Office Supplies', 'Office equipment and stationery'),
-('Communication', 'Phone, internet, and communication expenses'),
-('Entertainment', 'Client entertainment and business entertainment expenses'),
-('Training', 'Training and professional development expenses'),
-('Miscellaneous', 'Other expenses not covered by specific categories');
+('Perjalanan Dinas', 'Biaya transportasi termasuk tiket pesawat, kereta, bus, dan taksi'),
+('Makan & Minum', 'Biaya makan dan minum selama perjalanan dinas atau pertemuan'),
+('Akomodasi', 'Biaya hotel dan penginapan'),
+('Kesehatan', 'Biaya kesehatan dan medis'),
+('Perlengkapan Kantor', 'Peralatan kantor dan alat tulis'),
+('Komunikasi', 'Biaya telepon, internet, dan komunikasi'),
+('Hiburan', 'Biaya hiburan klien dan hiburan bisnis'),
+('Pelatihan', 'Biaya pelatihan dan pengembangan profesional'),
+('Lain-lain', 'Biaya lain yang tidak tercakup dalam kategori khusus');
 
 -- ====================================
 -- Views (Optional): Useful for reporting

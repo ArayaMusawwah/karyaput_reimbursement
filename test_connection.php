@@ -4,48 +4,48 @@ require_once 'includes/db.php';
 
 try {
     $conn = getConnection();
-    echo "✓ Database connection successful!\n";
-    
+    echo "✓ Koneksi database berhasil!\n";
+
     // Test if tables exist
     $tables = ['users', 'categories', 'reimbursement_requests'];
     foreach ($tables as $table) {
         $result = $conn->query("SELECT COUNT(*) FROM $table");
         if ($result !== false) {
-            echo "✓ Table '$table' exists\n";
+            echo "✓ Tabel '$table' ada\n";
         } else {
-            echo "✗ Table '$table' does not exist\n";
+            echo "✗ Tabel '$table' tidak ada\n";
         }
     }
-    
+
     // Check if default admin user exists
     $stmt = $conn->query("SELECT COUNT(*) as count FROM users WHERE username='admin'");
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($result['count'] > 0) {
-        echo "✓ Default admin user exists\n";
+        echo "✓ Pengguna admin default ada\n";
     } else {
-        echo "✗ Default admin user does not exist\n";
+        echo "✗ Pengguna admin default tidak ada\n";
     }
-    
+
     // Check if default categories exist
     $stmt = $conn->query("SELECT COUNT(*) as count FROM categories");
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($result['count'] >= 5) {
-        echo "✓ Default categories exist\n";
+        echo "✓ Kategori default ada\n";
     } else {
-        echo "✗ Default categories do not exist (found " . $result['count'] . ")\n";
+        echo "✗ Kategori default tidak ada (ditemukan " . $result['count'] . ")\n";
     }
-    
-    echo "\nTo complete the setup:\n";
-    echo "1. Make sure your web server is configured to serve this directory\n";
-    echo "2. Ensure your MariaDB server is running and accessible\n";
-    echo "3. Import the database schema from database_schema.sql:\n";
-    echo "   - Create the database: CREATE DATABASE reimbursement_system;\n";
-    echo "   - Import the schema: mysql -u root -p reimbursement_system < database_schema.sql\n";
-    echo "4. Access the system at http://your-server-address/index.php\n";
-    echo "5. Login with admin/admin123 to access the admin panel\n";
-    
+
+    echo "\nUntuk menyelesaikan pengaturan:\n";
+    echo "1. Pastikan server web Anda dikonfigurasi untuk melayani direktori ini\n";
+    echo "2. Pastikan server MariaDB Anda berjalan dan dapat diakses\n";
+    echo "3. Impor skema database dari database_schema.sql:\n";
+    echo "   - Buat database: CREATE DATABASE reimbursement_system;\n";
+    echo "   - Impor skema: mysql -u root -p reimbursement_system < database_schema.sql\n";
+    echo "4. Akses sistem di http://alamat-server-anda/index.php\n";
+    echo "5. Masuk dengan admin/admin123 untuk mengakses panel admin\n";
+
 } catch (Exception $e) {
-    echo "✗ Database connection failed: " . $e->getMessage() . "\n";
-    echo "Please check your database configuration in includes/db.php\n";
+    echo "✗ Koneksi database gagal: " . $e->getMessage() . "\n";
+    echo "Silakan periksa konfigurasi database Anda di includes/db.php\n";
 }
 ?>

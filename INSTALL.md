@@ -76,23 +76,40 @@ After setup, use the following default admin credentials:
 
 ```
 reimbursement/
-├── index.php           # Main entry point
-├── login.php           # Login page
-├── register.php        # Registration page
-├── dashboard.php       # User dashboard
-├── request.php         # Submit new requests
-├── profile.php         # User profile management
-├── admin_requests.php  # Manage requests (admin/manager)
-├── admin_users.php     # Manage users (admin only)
-├── logout.php          # Logout handler
+├── index.php               # Main entry point
+├── login.php               # Login page
+├── register.php            # Registration page
+├── dashboard.php           # User dashboard
+├── request.php             # Submit new requests
+├── profile.php             # User profile management
+├── admin_requests.php      # Manage requests (admin/manager)
+├── admin_users.php         # Manage users (admin only)
+├── logout.php              # Logout handler
+├── migrate_admin_password.php # Migration script to update admin password
+├── update_admin_password.sql  # SQL script to update admin password
 ├── includes/
-│   ├── db.php          # Database connection
-│   ├── auth.php        # Authentication functions
-│   └── header.php      # Navigation header
+│   ├── db.php              # Database connection
+│   ├── auth.php            # Authentication functions
+│   └── header.php          # Navigation header
 ├── css/
-│   └── style.css       # Styling
+│   └── style.css           # Styling
 ├── js/
 │   └── (JavaScript files)
-├── uploads/            # Receipt uploads (needs write permission)
-└── database_schema.sql # Database structure
+├── uploads/                # Receipt uploads (needs write permission)
+└── database_schema.sql     # Database structure
 ```
+
+## Updating Existing Installations
+
+If you have an existing installation and need to update the default admin password:
+
+1. Run the PHP migration script:
+
+   ```bash
+   php migrate_admin_password.php
+   ```
+
+2. Alternatively, execute the SQL update directly:
+   ```bash
+   mysql -u [username] -p [database_name] < update_admin_password.sql
+   ```
