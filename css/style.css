@@ -1,0 +1,42 @@
+/* Basic styles for the reimbursement system */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.table th {
+    border-top: none;
+}
+
+.status-badge {
+    font-size: 0.8em;
+}
+
+.dashboard-stats {
+    margin-bottom: 20px;
+}
+
+.form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+    margin-right: 5px;
+}
+
+.btn:last-child {
+    margin-right: 0;
+}
+
+.table-responsive {
+    margin-bottom: 20px;
+}
