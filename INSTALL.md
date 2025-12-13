@@ -52,10 +52,12 @@ define('DB_NAME', 'reimbursement_system'); // Database name
 
 ### 4. Default Login Credentials
 
-After setup, use the following default credentials:
+After setup, use the following default admin credentials:
 
-- Username: `admin`
-- Password: `admin123`
+- **Username:** `admin` or **Email:** `admin@karyaputrabersama.com`
+- **Password:** `admin123`
+
+**Important:** Change the default admin password immediately after first login for security.
 
 ### 5. Features
 

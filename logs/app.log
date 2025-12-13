@@ -10,3 +10,6 @@
 [2025-11-05 07:22:09] [INFO] [User: 2] [IP: 103.136.56.198] [URI: /request.php] Reimbursement request submitted successfully  | Context: {"user_id":2,"request_id":"17","items_count":1,"total_amount":10000}
 [2025-11-06 04:50:30] [INFO] [User: 2] [IP: 103.136.56.198] [URI: /request.php] Processing reimbursement request submission  | Context: {"user_id":2,"description":"Jl. Pangeran Jayakarta Ruko 121 No 9 Kec Sawah Besar, Kel Mangga Dua Selatan Jakarta Pusat 10730","category_id":1,"items_count":2,"total_amount":12000}
 [2025-11-06 04:50:30] [INFO] [User: 2] [IP: 103.136.56.198] [URI: /request.php] Reimbursement request submitted successfully  | Context: {"user_id":2,"request_id":"18","items_count":2,"total_amount":12000}
+[2025-12-13 14:34:17] [INFO] [User: 4] [IP: ::1] [URI: /request.php] Processing reimbursement request submission  | Context: {"user_id":4,"description":"Makan","category_id":5,"items_count":1,"total_amount":100000}
+[2025-12-13 14:34:17] [INFO] [User: 4] [IP: ::1] [URI: /request.php] Receipt uploaded successfully  | Context: {"file_path":"uploads\/693d7969185db.png"}
+[2025-12-13 14:34:17] [INFO] [User: 4] [IP: ::1] [URI: /request.php] Reimbursement request submitted successfully  | Context: {"user_id":4,"request_id":"1","items_count":1,"total_amount":100000}
