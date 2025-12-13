@@ -91,9 +91,9 @@ CREATE TABLE reimbursement_items (
 -- ====================================
 -- Create default admin account
 -- Username: admin
--- Password: Setup1PW!
+-- Password: admin123!
 INSERT INTO users (username, email, password, full_name, department, role) VALUES
-('admin', 'admin@karyaputrabersama.com', '$2y$12$ZhXBblGDbZXlYpncojogTOl/w9ey40ewIky6vdC71rzsNph6qf3Za', 'System Administrator', 'IT', 'admin');
+('admin', 'admin@change.me', '$2y$12$ZhXBblGDbZXlYpncojogTOl/w9ey40ewIky6vdC71rzsNph6qf3Za', 'System Administrator', 'IT', 'admin');
 
 -- ====================================
 -- Initial Data: Default Categories
