@@ -98,18 +98,3 @@ reimbursement/
 ├── uploads/                # Receipt uploads (needs write permission)
 └── database_schema.sql     # Database structure
 ```
-
-## Updating Existing Installations
-
-If you have an existing installation and need to update the default admin password:
-
-1. Run the PHP migration script:
-
-   ```bash
-   php migrate_admin_password.php
-   ```
-
-2. Alternatively, execute the SQL update directly:
-   ```bash
-   mysql -u [username] -p [database_name] < update_admin_password.sql
-   ```
