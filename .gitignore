@@ -1,0 +1,71 @@
+# OS generated files
+*.DS_Store
+.DS_Store.app
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+error_log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+*.gcov
+*.lcov
+
+# Temporary folders
+tmp
+temp
+tmp/*
+temp/*
+
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example
+
+# Composer/Packages (if using PHP Package Manager)
+vendor/
+
+# IDE files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.idea
+*.tmproj
+
+# Backup files
+*.bak
+*.tmp
+*.old
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.cache
+.php_cs.cache
+
+# Session files
+sess_*
+
+# Configuration specific to hosting
+.cpanel.yml
+.htaccess
